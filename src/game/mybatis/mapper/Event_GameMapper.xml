@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Event_Game">
+
+	<sql id="sql_select">
+		select event_game_id, event_id, game_id from event_game
+	</sql>
+
+	<insert id="insert" parameterType="Event_Game">
+		insert into event_game(event_game_id,event_id,game_id) 
+		values(seq_event_game.nextval,#{event.event_id},#{game.game_id})
+	</insert>
+	
+	<resultMap type="Event_Game" id="eventGameMap">
+		<id column="event_game_id" property="event_game_id"/>
+		<association column="event_id" property="event" javaType="Event" select="Event.select"/>
+		<association column="game_id" property="game" javaType="Game" select="Game.select"/>
+	</resultMap>
+	
+	<select id="selectAll" resultMap="eventGameMap">
+		<include refid="sql_select"/> order by event_game_id asc
+	</select>
+	
+	<select id="selectEventGame" parameterType="int" resultMap="eventGameMap">
+		<include refid="sql_select"/> where game_id=#{game_id}
+	</select>
+	
+	<select id="selectGame" parameterType="int" resultMap="eventGameMap">
+		<include refid="sql_select"/> where event_id=#{event_id}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from event_game where event_id=#{event.event_id}
+	</delete>
+	
+</mapper>

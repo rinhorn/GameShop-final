@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Event">
+
+	<sql id="sql_select">
+		select event_id, event_name, event_discount, event_icon, event_img from event
+	</sql>
+	
+	<insert id="insert" parameterType="Event">
+		insert into event(event_id,event_name,event_discount,event_icon,event_img) 
+		values(seq_event.nextval,#{event_name},#{event_discount},#{event_icon},#{event_img})
+		<selectKey order="AFTER" resultType="int" keyProperty="event_id">
+			select seq_event.currval as event_id from dual		
+		</selectKey>
+	</insert>
+	
+	<select id="selectAll" resultType="Event">
+		<include refid="sql_select"/> order by event_id desc
+	</select>
+	
+	<select id="select" parameterType="int" resultType="Event">
+		<include refid="sql_select"/> where event_id=#{event_id}
+	</select>
+	
+	<update id="update" parameterType="Event">
+		update event set event_name=#{event_name}, event_discount=#{event_discount},
+		event_icon=#{event_icon}, event_img=#{event_img}
+		where event_id=#{event_id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from event where event_id=#{event_id}	
+	</delete>
+	
+	<select id="search" parameterType="String" resultType="Event">
+      <include refid="sql_select"/> where event_name=#{event_name}
+   	</select>
+	
+</mapper>

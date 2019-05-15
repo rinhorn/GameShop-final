@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Sales_Detail">
+	<sql id="sql_select">
+      select sales_detail_id, sales_id, game_id, sales_rate from sales_detail
+   </sql>
+   
+   <insert id="insert" parameterType="Sales_Detail">
+      insert into sales_detail(sales_detail_id,sales_id,game_id,sales_rate)
+      values(seq_sales_detail.nextval, #{sales.sales_id}, #{game.game_id}, #{sales_rate})
+   </insert>
+   
+	<resultMap type="Sales_Detail" id="detailMap">
+      <id column="sales_detail_id" property="sales_detail_id"/>
+      <association column="game_id" property="game" javaType="Game" select="Game.select"/>
+   </resultMap>
+   
+   <select id="selectBySales_id" parameterType="int" resultMap="detailMap">
+      <include refid="sql_select"/>
+      where sales_id=#{sales.sales_id}
+   </select> 
+   
+   <select id="selectAll" resultMap="detailMap">
+      select game_id from sales_detail
+	  group by game_id order by count(game_id) desc
+   </select>
+   
+   <select id="selectAllGame" parameterType="int" resultMap="detailMap">
+   		<include refid="sql_select"/>
+   		where game_id=#{game.game_id}
+   </select>
+   
+   <select id="countGame" resultType="int" parameterType="int"> 
+    	select count(game_id) from sales_detail where game_id=#{game.game_id}
+   </select>
+   
+</mapper>

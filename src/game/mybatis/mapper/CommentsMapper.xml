@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Comments">
+	<sql id="sql_select">
+		select comments_id, recommend, review, regdate, member_id, game_id from comments
+	</sql>
+
+	<resultMap type="Comments" id="commentsMap">
+		<id column="comments_id" property="comments_id"/>
+		<association column="member_id" property="member" javaType="Member" select="Member.select" />
+		<association column="game_id" property="game" javaType="Game" select="Game.select" />
+	</resultMap>
+
+	<select id="selectAllByGame" parameterType="int" resultMap="commentsMap">
+		<include refid="sql_select"/>
+		where game_id=#{game.game_id} order by regdate desc
+	</select>
+
+	<insert id="insert" parameterType="Comments">
+		insert into comments(comments_id, game_id, member_id, recommend, review)
+		values(seq_comments.nextval, #{game.game_id}, #{member.member_id}, #{recommend}, #{review})
+	</insert>
+	
+	<update id="update" parameterType="Comments">
+		update comments set recommend=#{recommend}, review=#{review} where comments_id=#{comments_id}
+	</update> 
+
+   <delete id="delete" parameterType="int">
+        delete from comments where comments_id=#{comments_id}
+   </delete>
+   
+</mapper>

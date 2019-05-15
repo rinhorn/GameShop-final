@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Game_Img">
+
+	<sql id="sql_select">
+		select game_img_id, game_id, img_filename from game_img
+	</sql>
+
+	<insert id="insert" parameterType="Game_Img">
+		insert into game_img(game_img_id, game_id, img_filename) 
+		values(seq_game_img.nextval, #{game.game_id}, #{img_filename})
+	</insert>
+	
+	<select id="selectImg" parameterType="int" resultType="Game_Img">
+		<include refid="sql_select"/> where game_id=#{game_id}
+	</select>
+	
+	<delete id="delete" parameterType="Game_Img">
+      	delete from game_img where game_id=#{game.game_id}
+   	</delete> 
+	
+</mapper>

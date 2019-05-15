@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Sales">
+	<sql id="sql_select">
+      select sales_id, member_id, order_date from sales
+   </sql>
+   
+   <insert id="insert" parameterType="Sales">
+      insert into sales(sales_id, member_id) 
+      values(seq_sales.nextval, #{member_id})
+      <selectKey order="AFTER" resultType="int" keyProperty="sales_id">
+         select seq_sales.currval as sales_id from dual      
+      </selectKey>
+   </insert>
+   
+   <resultMap type="Sales" id="salesMap">
+       <id column="sales_id"    property="sales_id"/>
+       <result column="order_date" property="order_date"/>
+       <association column="member_id" property="member" javaType="Member" select="Member.select"/>   
+       <collection column="sales_id" property="detailList" javaType="java.util.List" ofType="Sales_Detail" 
+          select="Sales_Detail.selectBySales_id"/>
+    </resultMap>
+    
+    <resultMap type="Sales" id="salesMap2">
+      <id column="sales_id" property="sales_id" />
+      <result column="order_date" property="order_date" />
+      <collection column="sales_id" property="detailList"
+         javaType="java.util.List" ofType="Sales_Detail"
+         select="Sales_Detail.selectBySales_id" />
+    </resultMap>
+   
+   <select id="selectAllInMyPage" resultMap="salesMap">
+      <include refid="sql_select"/>
+      where member_id=#{member.member_id}
+   </select>
+   
+   <select id="selectAll" resultMap="salesMap2">
+      <include refid="sql_select"/>
+      order by order_date desc
+   </select>
+   
+   <select id="selectAllByOrderDate" resultMap="salesMap2" parameterType="String">
+      <include refid="sql_select"/>
+         where to_char(order_date, 'yy/mm/dd')=#{order_date}
+   </select>
+   
+</mapper>

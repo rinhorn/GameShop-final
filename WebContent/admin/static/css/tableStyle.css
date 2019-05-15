@@ -1,0 +1,122 @@
+* {
+   box-sizing: border-box;
+}
+
+p.total {
+	margin-top: 40px;
+	font-size: 22px;
+	font-weight: 550;
+    float: left; 
+}
+
+form.example {
+   width: 20%;
+   height: 70%;
+   float: right;
+}
+/* Style the search field */
+form.example input[type=text] {
+   padding: 10px;
+   font-size: 17px;
+   border: 1px solid grey;
+   float: left;
+   width: 80%;
+   background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.example button {
+   float: left;
+   width: 20%;
+   padding: 10px;
+   background: #2ecc71;
+   color: white;
+   font-size: 17px;
+   border: 1px solid grey;
+   border-left: none; /* Prevent double borders */
+   cursor: pointer;
+}
+
+form.example button:hover {
+   background: #45a049;
+}
+
+/* Clear floats */
+form.example::after {
+   content: "";
+   clear: both;
+   display: table;
+}
+
+h2{
+   position: relative;
+   top: 30px;
+   left: 60px;
+   font-size: 35px;
+}
+
+table {
+   border-collapse: collapse;
+   border-spacing: 0;
+   width: 100%;
+   border: 1px solid #ddd;
+   position:relative;
+   top: 20px;
+   font-size: 16px;
+}
+
+th, td {
+   text-align: left;
+   padding: 16px;
+}
+
+th {
+   font-size: 18px;
+}
+
+tr:nth-child(even) {
+   background-color: #f2f2f2;
+}
+
+tfoot td{
+   background-color: #f2f2f2;
+   text-align: center;
+}
+
+tfoot a{
+   margin: 0px 10px;
+   text-decoration: none;
+   font-size: 17px;
+   color: #535353;
+}
+
+.pageNum{
+   font-size: 20px;
+   color: #2ecc71;
+}
+
+select{
+   height: 25px;
+   font-size: 16px;
+}
+
+button {
+   background-color: #4CAF50;
+   color: white;
+   padding: 12px 20px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+#registBtn{
+   margin-left: 10px;
+   position:relative;
+   top: 40px;
+   width: 5%;
+   font-size: 16px;
+}
+
+#registBtn:hover {
+   background-color: #45a049;
+}

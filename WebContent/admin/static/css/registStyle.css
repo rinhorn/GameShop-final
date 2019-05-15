@@ -1,0 +1,82 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+h3 {
+	margin-left: 30px;
+	font-size: 22px;
+}
+
+input[type=text], select, textarea {
+	width: 95%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-top: 6px;
+	margin-bottom: 16px;
+	resize: vertical;
+}
+
+label {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+label, input {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+input[type=button], .fileBox label {
+	background-color: #4CAF50;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.fileBox input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+input[type=button]:hover, .fileBox label {
+	background-color: #45a049;
+}
+
+#bt {
+	margin-left: 25px;
+}
+
+.container {
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	padding: 20px;
+	padding-left: 40px;
+	margin-bottom: 20px;
+}
+
+hr {
+	width: 98%;
+	color: #C5C5C5;
+	border: 1px solid;
+	text-align: center;
+	margin: 30px 0px;
+}

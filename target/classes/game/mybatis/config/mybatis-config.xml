@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="game.model.domain.Master" alias="Master" />
+		<typeAlias type="game.model.domain.Category" alias="Category" />
+		<typeAlias type="game.model.domain.Game" alias="Game" />
+		<typeAlias type="game.model.domain.Game_Img" alias="Game_Img" />
+		<typeAlias type="game.model.domain.Member" alias="Member" />
+		<typeAlias type="game.model.domain.Event" alias="Event" />
+		<typeAlias type="game.model.domain.Event_Game" alias="Event_Game" />
+		<typeAlias type="game.model.domain.Comments" alias="Comments" />
+		<typeAlias type="game.model.domain.Cart" alias="Cart" />
+		<typeAlias type="game.model.domain.Sales" alias="Sales" />
+		<typeAlias type="game.model.domain.Sales_Detail" alias="Sales_Detail" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="game/mybatis/mapper/MasterMapper.xml" />
+		<mapper resource="game/mybatis/mapper/CategoryMapper.xml" />
+		<mapper resource="game/mybatis/mapper/GameMapper.xml" />
+		<mapper resource="game/mybatis/mapper/Game_ImgMapper.xml" />
+		<mapper resource="game/mybatis/mapper/MemberMapper.xml" />
+		<mapper resource="game/mybatis/mapper/EventMapper.xml" />
+		<mapper resource="game/mybatis/mapper/Event_GameMapper.xml" />
+		<mapper resource="game/mybatis/mapper/CommentsMapper.xml" />
+		<mapper resource="game/mybatis/mapper/CartMapper.xml" />
+		<mapper resource="game/mybatis/mapper/SalesMapper.xml" />
+		<mapper resource="game/mybatis/mapper/Sales_DetailMapper.xml" />
+	</mappers>
+</configuration>

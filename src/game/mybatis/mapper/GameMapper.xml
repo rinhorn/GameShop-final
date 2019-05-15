@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Game">
+
+   <sql id="sql_select">
+      select game_id, game_name, game_price, game_sale,
+      game_company,
+      game_date, game_detail, category_id from game
+   </sql>
+
+   <insert id="insert" parameterType="Game">
+      insert into
+      game(game_id,game_name,game_price,game_company,game_detail,category_id)
+      values(seq_game.nextval,#{game_name},#{game_price},#{game_company},#{game_detail},#{category_id})
+      <selectKey order="AFTER" resultType="int"
+         keyProperty="game_id">
+         select seq_game.currval as game_id from dual
+      </selectKey>
+   </insert>
+
+   <select id="selectAll" resultType="Game">
+      <include refid="sql_select" />
+      order by game_name asc
+   </select>
+
+   <select id="select" parameterType="int" resultType="Game">
+      <include refid="sql_select" />
+      where game_id=#{game_id}
+   </select>
+
+   <select id="search" parameterType="String" resultType="Game">
+      <include refid="sql_select" />
+      where game_name=#{game_name}
+   </select>
+
+   <update id="update" parameterType="Game">
+      update game set
+      category_id=#{category.category_id}, game_name=#{game_name},
+      game_price=#{game_price},
+      game_sale=#{game_sale},
+      game_company=#{game_company},
+      game_detail=#{game_detail} where
+      game_id=#{game_id}
+   </update>
+   
+   <update id="updateSale" parameterType="Game">
+      update game set game_sale=#{game_sale}
+      where game_id=#{game_id}
+   </update>
+
+   <delete id="delete" parameterType="int">
+      delete from game where
+      game_id=#{game_id}
+   </delete>
+   
+   <select id="selectByName" resultType="Game">
+      <include refid="sql_select"/>
+      order by game_name asc
+   </select>
+   
+   <select id="selectByPrice" resultType="Game">
+      <include refid="sql_select"/>
+      order by game_price*(100-game_sale) desc
+   </select>
+   
+   <select id="selectByRegdate" resultType="Game">
+      <include refid="sql_select"/>
+      order by game_date desc
+   </select>
+   
+   <select id="selectByCategory" parameterType="int"
+      resultType="Game">
+      <include refid="sql_select" />
+      where category_id=#{category_id}
+   </select>
+   
+   <select id="selectByCategoryName" parameterType="int" resultType="Game">
+      <include refid="sql_select"/>
+      where category_id=#{category_id}
+      order by game_name asc
+   </select>
+   
+   <select id="selectByCategoryPrice" parameterType="int"
+      resultType="Game">
+      <include refid="sql_select" />
+      where category_id=#{category_id} order by game_price*(100-game_sale) desc
+   </select>
+   
+   <select id="selectByCategoryRegdate" parameterType="int"
+      resultType="Game">
+      <include refid="sql_select" />
+      where category_id=#{category_id} order by game_date desc
+   </select>
+</mapper>
